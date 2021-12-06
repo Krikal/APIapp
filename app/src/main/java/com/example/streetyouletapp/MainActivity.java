@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         productList = findViewById(R.id.product_list);
         products = new ArrayList<>();
 
-        extractProduct("http://www.streetyoulet.com/wp-json/wp/v2/product");
+        extractProduct(getResources().getString(R.string.url));
         GridLayoutManager manager = new GridLayoutManager(this,2);
         productList.setLayoutManager(manager);
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         product.setId(jsonObject.getInt("id"));
                         product.setLink(jsonObject.getString("link"));
                         product.setStatus(jsonObject.getString("status"));
-
+                        // size
                         JSONObject sizeObject = jsonObject.getJSONObject("excerpt");
                         String rendered =sizeObject.getString("rendered");
                         Pattern p = Pattern.compile("\\d+");
@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                             size.add(m.group());
                         }
                         product.setSize(size);
+                        //title
+                        JSONObject titleObject = jsonObject.getJSONObject("title");
+                        product.setTitle(titleObject.getString("rendered"));
 
                         Log.d("TAG'", "onResponse " + product.toString());
                         products.add(product);

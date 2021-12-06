@@ -4,12 +4,21 @@ import java.util.ArrayList;
 
 public class Product {
     private int id;
+    private String title;
     private String status;
     private String link;
     private ArrayList<String> size;
 
     public Product() {
 
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getId() {
