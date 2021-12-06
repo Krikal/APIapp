@@ -1,6 +1,8 @@
 package com.example.streetyouletapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -25,13 +27,28 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView productList;
+    List<Product> products;
+    ProductAdapter adapter;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        productList = findViewById(R.id.product_list);
+        products = new ArrayList<>();
 
         extractProduct("http://www.streetyoulet.com/wp-json/wp/v2/product");
+        GridLayoutManager manager = new GridLayoutManager(this,2);
+        productList.setLayoutManager(manager);
+
+        adapter = new ProductAdapter(products);
+        productList.setAdapter(adapter);
+
+
+
 
     }
     private void extractProduct(String URL){
@@ -59,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                         product.setSize(size);
 
                         Log.d("TAG'", "onResponse " + product.toString());
+                        products.add(product);
+                        adapter.notifyDataSetChanged();
 
 
 
