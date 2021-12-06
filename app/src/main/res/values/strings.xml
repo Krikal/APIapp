@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StreetYouletApp</string>
+    <string name="url">http://www.streetyoulet.com/wp-json/wp/v2/users</string>
 </resources>
